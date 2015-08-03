@@ -10,7 +10,7 @@ router.get('/', function(req, res) {
 
 /* GET autor page. */
 router.get('/author', function(req, res) {
-  res.render('author', { title: 'Autor' });
+  res.render('author', { title: 'Autor', errors: []});
 });
 
 // Autoload de comandos con :quizId

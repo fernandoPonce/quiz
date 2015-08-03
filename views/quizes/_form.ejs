@@ -1,6 +1,21 @@
+<label for="tematica" class="rem">Tem&aacute;tica:</label>
+<select name="quiz[tematica]" id="tematica">
+     <option value="Ciencia">Ciencia</option>
+     <option value="Humanidades">Humanidades</option>
+     <option value="Ocio">Ocio</option>
+     <option value="Tecnologia">Tecnología</option>
+     <option value="Otro" selected>Otro</option>
+</select> <p>
 <label for="preg" class="rem">Pregunta:</label>
 <input type="text" id="preg" name="quiz[pregunta]" value="<%= quiz.pregunta %>"/> <p>
 <label for="resp" class="rem">Respuesta:</label>
 <input type="text" id="resp" name="quiz[respuesta]" value="<%= quiz.respuesta %>"/> <p>
 <a href="/quizes"><button type="button">Cancelar</button></a>
 <input type="submit" value="Salvar">
+
+<script type="text/javascript">
+    mi_select = document.getElementById("tematica");
+    console.log(mi_select.value);
+    console.log("<%= quiz.tematica %>");
+    mi_select.value = "<%= quiz.tematica %>";
+</script>
