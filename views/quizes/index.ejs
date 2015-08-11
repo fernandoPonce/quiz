@@ -1,3 +1,21 @@
+<form method="get" action="quizes?search='search'">
+  <table>
+    <tr>
+      <td>
+        Buscar pregunta:
+      </td>
+      <td>
+        <input type="text" name="search" id="search" value="<%= (search) ? search : "" %>"/>
+      </td>
+      <td>
+        <button type="submit">
+          Buscar
+          </button>
+      </td>
+    </tr>
+  </table>
+</form>
+</br>
 <table>
 <% var i; for (i=0; i < quizes.length; i++) { %>
   <tr>
@@ -18,4 +36,7 @@
 <% } %>
 </table>
 <p/>
-<a href="/quizes/new"><button type="button">Crear pregunta</button></a>
+</br>
+<p align="left">
+  <a href="/quizes/new"><button type="button">Crear pregunta</button></a>
+</p>
