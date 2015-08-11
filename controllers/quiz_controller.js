@@ -39,9 +39,18 @@ exports.answer = function(req, res) {
 
 // GET /quizes
 exports.index = function(req, res) {
-  models.Quiz.findAll().then(function(quizes) {
-    res.render('quizes/index.ejs', { quizes: quizes, errors: []});
-  }).catch(function(error) { next(error);})
+  var search = req.param('search');
+  if(search) {
+    var searchQuery =  "%".concat(search.replace(" ","%").concat("%"));
+    models.Quiz.findAll({where: ["pregunta like ?", searchQuery], order: "pregunta"}).then(function(quizes) {
+      res.render('quizes/index.ejs', { quizes: quizes, search: search, errors: []});
+    }).catch(function(error) { next(error);})
+  }
+  else {
+    models.Quiz.findAll().then(function(quizes) {
+      res.render('quizes/index.ejs', { quizes: quizes, search: search, errors: []});
+    }).catch(function(error) { next(error);})
+  }
 };
 
 // GET /quizes/new
