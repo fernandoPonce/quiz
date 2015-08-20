@@ -27,6 +27,7 @@ app.use(cookieParser('Quiz 2015'));
 app.use(session());
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({resave: true, saveUninitialized: true, secret: 'keep'}));
 
 // Helpers dinamicos:
 app.use(function(req, res, next) {
@@ -38,6 +39,21 @@ app.use(function(req, res, next) {
 
   // Hacer visible req.session en las vistas
   res.locals.session = req.session;
+
+  // Analizamos la hora del servidor
+  if(req.session.user) {
+    var horaActual = new Date().getTime();
+    var tiempoInactivo = horaActual - (req.session.horaEntrada || horaActual);
+    console.log('Tiempo inactividad: ' + tiempoInactivo);
+    // Si el tiempo de inactividad supera los dos minutos, volvemos a la pantalla de login
+    if(tiempoInactivo > 2*60*1000) {
+      delete req.session.user;
+      delete req.session.horaEntrada;
+    }
+    else {
+      req.session.horaEntrada = horaActual;
+    }
+  }
   next();
 });
 
